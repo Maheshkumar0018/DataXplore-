@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>File Upload</title>
+	<style>
+		body {
+			font-family: Arial, sans-serif;
+			background-color: #f7f7f7;
+		}
+
+		form {
+			max-width: 500px;
+			margin: 0 auto;
+			padding: 20px;
+			background-color: #fff;
+			border-radius: 5px;
+			box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
+		}
+
+		input[type="file"] {
+			display: block;
+			margin-bottom: 20px;
+		}
+
+		input[type="submit"] {
+			background-color: #4CAF50;
+			color: #fff;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+			font-size: 16px;
+		}
+
+		input[type="submit"]:hover {
+			background-color: #3e8e41;
+		}
+		.my-image {
+    		width: 100px;
+    		height: 100px;
+    		border: 1px solid black;
+			position: fixed;
+  		}	
+		img {
+  			width: 100%;
+  			height: auto;
+		}
+	</style>
+</head>
+<body>
+	<form action="/upload" method='POST' enctype="multipart/form-data">
+		<h2>File Upload</h2>
+		<input type="file" name="file" id="file">
+		<input type="submit" value="Upload">
+		{% with messages = get_flashed_messages() %}  
+         	{% if messages %}  
+               {% for message in messages %}  
+                    <p style="color: rgb(218, 52, 52);">{{ message }}</p>  
+               {% endfor %}  
+         	{% endif %}  
+      	{% endwith %} 
+		<div>
+			<p>Feature Analysis</p>
+			<a href="{{ url_for('features') }}" >
+				<img src="https://confusedcoders.com/wp-content/uploads/2018/10/1_eVZyKIcUXOfzPrMTGx7yVw.png" alt="Feature Analysis">
+			</a>
+			<p>Visualization</p>
+			<a href="{{ url_for('visuallandingpage') }}" >
+				<img src="https://www.springboard.com/blog/wp-content/uploads/2020/10/dataset-analysis.png" alt="Feature Analysis">
+			</a>
+		</div>
+	</form>
+</body>
+</html>
