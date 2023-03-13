@@ -47,6 +47,7 @@ def upload():
 @app.route('/features',methods=['GET', 'POST'])
 def features():
      global filename
+     print('******File_name******:',filename)
      columns = allFeatures(file_path,filename)
      img_path = '../static/images/distribution.png'
      if request.method == 'POST':
@@ -56,34 +57,39 @@ def features():
         dtype = request.form.get('data_types')
         dfshape = request.form.get('dfshape')
         dist_col = request.form.get('distribution')
-        #print("***feature_null***",col_null)
-
+        #column_name = request.form.get('dropfeature')
+        #print("***dropfeature***",column_name)
         if features not in ['None','Select','NO']:
             feature_columns =  allFeatures(file_path,filename)
             feature_columns = feature_columns.tolist()
             #print("All Columns:",feature_columns)
         else:
             feature_columns="Please Select the Column"
+
         if nulls not in ['None','Select','NO']:
             dnulls = df_nulls(file_path,filename)
             #print("All Nulls:",dnulls)
         else:
             dnulls="Please Select the Column"
+
         if col_null not in ['None','Select','NO']:
             col_nulls = feature_nulls(file_path,filename,col_null)
             #print("col_nulls:",col_nulls)
         else:
             col_nulls="Please Select the Column"
+
         if dtype not in ['None','Select','NO']:
             df_dtypes = dataframe_dtypes(file_path,filename)
             #print("df_dtypes:",df_dtypes)
         else:
             df_dtypes="Please Select the Column"
+
         if dfshape not in ['None','Select','NO']:
             df_shape = dataframe_shape(file_path,filename)
             #print("dfshape:",df_shape)
         else:
             df_shape="Please Select the Column"
+
         if dist_col not in ['None','Select','NO']:
             dist = feature_distribution(file_path,filename,dist_col)
         else:
@@ -91,9 +97,10 @@ def features():
 
 
         return render_template('features_analysis.html',columns=columns,feature_columns=feature_columns,dnulls=dnulls,
-                               col_nulls=col_nulls,df_dtypes=df_dtypes,df_shape=df_shape,dist=dist,img_path=img_path,col_null=col_null)
+                               col_nulls=col_nulls,df_dtypes=df_dtypes,df_shape=df_shape,dist=dist,img_path=img_path,
+                               col_null=col_null,filename=filename)
 
-     return render_template('features_analysis.html',columns=columns)
+     return render_template('features_analysis.html',columns=columns,filename=filename)
 
 
 @app.route('/visuallandingpage')
@@ -103,7 +110,7 @@ def visuallandingpage():
     #print("*******selected_file:", filename)
     data = read_df(file_path,filename)
 
-    return render_template('visual_index.html')
+    return render_template('visual_index.html',filename=filename)
 
 @app.route('/heatmap')
 def heatmap():
@@ -114,7 +121,7 @@ def heatmap():
     #print("***head:",data)
     heat = heatmap_data(data)
 
-    return render_template('heatmap.html',img_path=img_path)
+    return render_template('heatmap.html',img_path=img_path,filename=filename)
 
 @app.route('/pairplot',methods=['GET', 'POST'])
 def pairplot():
@@ -133,8 +140,8 @@ def pairplot():
         data = df[[pairfeat1,pairfeat2,pairfeat3]]
         pair = pairplot_data(data)
 
-        return render_template('pairplot.html',columns=columns,img_path=img_path)
-    return render_template('pairplot.html',columns=columns)
+        return render_template('pairplot.html',columns=columns,img_path=img_path,filename=filename)
+    return render_template('pairplot.html',columns=columns,filename=filename)
 
 @app.route('/boxplot',methods=['GET', 'POST'])
 def boxplot():
@@ -152,8 +159,8 @@ def boxplot():
         data = df[[feat1,feat2,feat3]]
         box = boxplot_data(data)
 
-        return render_template('boxplot.html',columns=columns,img_path=img_path)
-    return render_template('boxplot.html',columns=columns)
+        return render_template('boxplot.html',columns=columns,img_path=img_path,filename=filename)
+    return render_template('boxplot.html',columns=columns,filename=filename)
 
 @app.route('/histogram',methods=['GET', 'POST'])
 def histogram():
@@ -166,8 +173,8 @@ def histogram():
         data = pd.read_csv(file_path+'/'+filename,encoding='ISO-8859-1')
         his = histogram_data(data, histcol, hue='Select')
 
-        return render_template('Histogram.html',columns=columns,img_path=img_path)
-    return render_template('Histogram.html',columns=columns)
+        return render_template('Histogram.html',columns=columns,img_path=img_path,filename=filename)
+    return render_template('Histogram.html',columns=columns,filename=filename)
 
 if __name__ == '__main__':
 	app.run(debug=True)

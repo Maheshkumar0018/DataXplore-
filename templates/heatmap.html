@@ -58,8 +58,12 @@
     <a href="{{ url_for('upload') }}" >
         <h5>Upload a File</h5>
     </a>
+	<a href="{{ url_for('features') }}" >
+        <h5>Feature Analysis</h5>
+    </a>
 	<div class="container">
 		<div class="box1"><h2 style="color: rgb(52, 69, 218);">Heat Map</h2>
+			<span>Uploaded File: {{filename}}</span>
 	<!--<form action="/heatmap" method='POST' onsubmit="return validateForm()" enctype="multipart/form-data">
 
         <label for="dropdown6">Column 1:</label>

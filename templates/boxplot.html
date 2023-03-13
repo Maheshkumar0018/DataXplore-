@@ -145,6 +145,9 @@
     <a href="{{ url_for('upload') }}" >
         <h5>Upload a File</h5>
     </a>
+	<a href="{{ url_for('features') }}" >
+        <h5>Feature Analysis</h5>
+    </a>
     <div class="sidebar">
         <button class="open-btn" onclick="openNav()">☰ Open Sidebar</button>
         <nav id="mySidenav" class="sidenav">
@@ -158,6 +161,7 @@
 	<div class="container">
 		<div class="box1"><h2 style="color: rgb(52, 69, 218);">Box Plot</h2>
 			<p style="color: rgb(218, 52, 52);"><u>Note: </u> Please Select the Different Features</p>
+			<span>Uploaded File: {{filename}}</span>
 	<form action="/boxplot" method='POST'  onsubmit="return validateForm()" enctype="multipart/form-data">
 		<label for="dropdown1">Features 1</label>
 		<select id="dropdown1" name="feature1">

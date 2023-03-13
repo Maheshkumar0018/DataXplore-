@@ -11,6 +11,7 @@ def read_df(file_path,file_name):
     #print(df.head())
     return df
 
+
 def allFeatures(file_path,file_name):
     df = pd.read_csv(file_path+'/'+file_name,encoding='ISO-8859-1')
     features = df.columns
@@ -19,7 +20,9 @@ def allFeatures(file_path,file_name):
 def df_nulls(file_path,file_name):
      df = pd.read_csv(file_path+'/'+file_name,encoding='ISO-8859-1')
      df_nulls = df.isnull().sum()
+     cols = df.columns
      return df_nulls
+
 def feature_nulls(file_path,file_name,col_name):
     df =  pd.read_csv(file_path+'/'+file_name,encoding='ISO-8859-1')
     col_nulls = df[col_name].isnull().sum()
