@@ -78,3 +78,26 @@ def boxplot_data(data):
     fig = plt.savefig('./static/images/distribution.png')
     #plt.show()
 
+def pairplot_data(data):
+    X = data
+    plt.figure(facecolor='white')
+    plt.figure(dpi=300, facecolor='white')
+    sns.set(font_scale=1.1)
+    ax = sns.pairplot(X, diag_kind='hist', kind='scatter', hue=None)
+    # ax.fig.set_size_inches(20,15)
+    fig = plt.savefig('./static/images/distribution.png')
+    #plt.show()
+
+def histogram_data(data, columns, hue='Select'):
+    sns.set(font_scale=0.8)
+    #print("****************inside histogram_data1")
+    plt.figure(dpi=600, facecolor='white')
+    if hue != 'Select':
+        sns.histplot(data, x=columns, hue=hue, palette="tab10")
+        #print("****************inside histogram_data2")
+    else:
+        sns.histplot(data, x=columns)
+        #print("****************inside histogram_data3")
+    fig = plt.savefig('./static/images/distribution.png')
+    #return fig_to_base64(plt)
+    #plt.show()

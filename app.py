@@ -23,11 +23,11 @@ def upload():
         filename = secure_filename(upload_file.filename) 
         print("*****file_name:", filename)
         # submit without any file
-        extension = filename.split('.')[1]
+        
         if upload_file.filename == '':
             flash('Please Select the File')
             return redirect(url_for('upload'))
-        
+        extension = filename.split('.')[1]
         if extension in app.config['ALLOWED_EXTENSIONS']:
         
             upload_file.save(os.path.join(
@@ -76,7 +76,7 @@ def features():
             col_nulls="Please Select the Column"
         if dtype not in ['None','Select','NO']:
             df_dtypes = dataframe_dtypes(file_path,filename)
-            print("df_dtypes:",df_dtypes)
+            #print("df_dtypes:",df_dtypes)
         else:
             df_dtypes="Please Select the Column"
         if dfshape not in ['None','Select','NO']:
@@ -116,6 +116,26 @@ def heatmap():
 
     return render_template('heatmap.html',img_path=img_path)
 
+@app.route('/pairplot',methods=['GET', 'POST'])
+def pairplot():
+    global filename
+    img_path = '../static/images/distribution.png'
+    columns = allFeatures(file_path,filename)
+    columns = columns.to_list()
+    if request.method == 'POST':
+        pairfeat1 = request.form.get('pairfeature1')
+        pairfeat2 = request.form.get('pairfeature2')
+        pairfeat3 = request.form.get('pairfeature3')
+        #print("****Feature1*****",pairfeat1)
+        #print("****Feature2*****",pairfeat2)
+        #print("****Feature3*****",pairfeat3)
+        df = pd.read_csv(file_path+'/'+filename,encoding='ISO-8859-1')
+        data = df[[pairfeat1,pairfeat2,pairfeat3]]
+        pair = pairplot_data(data)
+
+        return render_template('pairplot.html',columns=columns,img_path=img_path)
+    return render_template('pairplot.html',columns=columns)
+
 @app.route('/boxplot',methods=['GET', 'POST'])
 def boxplot():
     img_path = '../static/images/distribution.png'
@@ -134,6 +154,20 @@ def boxplot():
 
         return render_template('boxplot.html',columns=columns,img_path=img_path)
     return render_template('boxplot.html',columns=columns)
+
+@app.route('/histogram',methods=['GET', 'POST'])
+def histogram():
+    img_path = '../static/images/distribution.png'
+    columns = allFeatures(file_path,filename)
+    columns = columns.to_list()
+    if request.method == 'POST':
+        histcol =  request.form.get('histfeature')
+        #print("*******Histogram*********",hist)
+        data = pd.read_csv(file_path+'/'+filename,encoding='ISO-8859-1')
+        his = histogram_data(data, histcol, hue='Select')
+
+        return render_template('Histogram.html',columns=columns,img_path=img_path)
+    return render_template('Histogram.html',columns=columns)
 
 if __name__ == '__main__':
 	app.run(debug=True)

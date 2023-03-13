@@ -152,37 +152,21 @@
           <a href="{{ url_for('heatmap') }}">HeatMap</a>
           <a href="{{ url_for('pairplot') }}">Pair Pot</a>
           <a href="{{ url_for('boxplot') }}">Box Plot</a>
-		  <a href="{{ url_for('histogram') }}">Histogram</a>
+          <a href="{{ url_for('histogram') }}">Histogram</a>
         </nav>
     </div>
 	<div class="container">
-		<div class="box1"><h2 style="color: rgb(52, 69, 218);">Box Plot</h2>
+		<div class="box1"><h2 style="color: rgb(52, 69, 218);">Histogram</h2>
 			<p style="color: rgb(218, 52, 52);"><u>Note: </u> Please Select the Different Features</p>
-	<form action="/boxplot" method='POST'  onsubmit="return validateForm()" enctype="multipart/form-data">
-		<label for="dropdown1">Features 1</label>
-		<select id="dropdown1" name="feature1">
+
+	<form action="/histogram" method='POST'  onsubmit="return validateForm()" enctype="multipart/form-data">
+		<label for="dropdown1">Features </label>
+		<select id="dropdown1" name="histfeature">
             <option value="Select">Select</option>
             {% for column in columns %}
             <option value="{{ column }}">{{ column }}</option>
             {% endfor %}
 		</select>
-
-		<label for="dropdown2">Features 2</label>
-		<select id="dropdown2" name="feature2">
-            <option value="Select">Select</option>
-			{% for column in columns %}
-            <option value="{{ column }}">{{ column }}</option>
-            {% endfor %}
-		</select>
-
-        <label for="dropdown2">Features 3</label>
-		<select id="dropdown2" name="feature3">
-            <option value="Select">Select</option>
-			{% for column in columns %}
-            <option value="{{ column }}">{{ column }}</option>
-            {% endfor %}
-		</select>
-
 		
 
         <input type="submit" value="Submit">

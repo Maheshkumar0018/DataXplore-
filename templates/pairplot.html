@@ -156,11 +156,12 @@
         </nav>
     </div>
 	<div class="container">
-		<div class="box1"><h2 style="color: rgb(52, 69, 218);">Box Plot</h2>
+		<div class="box1"><h2 style="color: rgb(52, 69, 218);">Pair Plot</h2>
 			<p style="color: rgb(218, 52, 52);"><u>Note: </u> Please Select the Different Features</p>
-	<form action="/boxplot" method='POST'  onsubmit="return validateForm()" enctype="multipart/form-data">
+
+	<form action="/pairplot" method='POST'  onsubmit="return validateForm()" enctype="multipart/form-data">
 		<label for="dropdown1">Features 1</label>
-		<select id="dropdown1" name="feature1">
+		<select id="dropdown1" name="pairfeature1">
             <option value="Select">Select</option>
             {% for column in columns %}
             <option value="{{ column }}">{{ column }}</option>
@@ -168,7 +169,7 @@
 		</select>
 
 		<label for="dropdown2">Features 2</label>
-		<select id="dropdown2" name="feature2">
+		<select id="dropdown2" name="pairfeature2">
             <option value="Select">Select</option>
 			{% for column in columns %}
             <option value="{{ column }}">{{ column }}</option>
@@ -176,7 +177,7 @@
 		</select>
 
         <label for="dropdown2">Features 3</label>
-		<select id="dropdown2" name="feature3">
+		<select id="dropdown2" name="pairfeature3">
             <option value="Select">Select</option>
 			{% for column in columns %}
             <option value="{{ column }}">{{ column }}</option>

@@ -49,17 +49,20 @@
         <nav id="mySidenav" class="sidenav">
           <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
           <a href="{{ url_for('heatmap') }}">HeatMap</a>
-          <a href="#">Pair Pot</a>
+          <a href="{{ url_for('pairplot') }}">Pair Pot</a>
           <a href="{{ url_for('boxplot') }}">Box Plot</a>
-          <a href="#">Scatter Plot</a>
+		  <a href="{{ url_for('histogram') }}">Histogram</a>
         </nav>
     </div>
     <h1>Basic DataFrame Feature Analysis</h1>
     <a href="{{ url_for('upload') }}" >
         <h5>Upload a File</h5>
     </a> 
+	<a href="{{ url_for('features') }}" >
+        <h5>Feature Analysis</h5>
+    </a>
 	<br>  
-	<h6><u style="color: rgb(238, 7, 7);">Note:</u><span style="color: rgb(231, 17, 17);">File Uploads redirect to Starting page, there you should upload the File</span></h6> 
+	<h6><u style="color: rgb(238, 7, 7);">Note:</u><span style="color: rgb(231, 17, 17);">Uploads a File  redirect to Starting page, there you should upload the File</span></h6> 
 	<script src="../static/js/sidebar.js"></script>
     <script src="../static/js/alert.js"></script>
 </body>
