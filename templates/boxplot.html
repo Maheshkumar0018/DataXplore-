@@ -141,7 +141,8 @@
 	</style>
 </head>
 <body>
-	<h1>Basic DataFrame Feature Analysis</h1>
+	<br>
+	<br>
     <a href="{{ url_for('upload') }}" >
         <h5>Upload a File</h5>
     </a>
@@ -160,7 +161,7 @@
     </div>
 	<div class="container">
 		<div class="box1"><h2 style="color: rgb(52, 69, 218);">Box Plot</h2>
-			<p style="color: rgb(218, 52, 52);"><u>Note: </u> Please Select the Different Features</p>
+			<p style="color: rgb(218, 52, 52);"><u>Note: </u>The three columns have the same series. Box plot not created.</p>
 			<span>Uploaded File: {{filename}}</span>
 	<form action="/boxplot" method='POST'  onsubmit="return validateForm()" enctype="multipart/form-data">
 		<label for="dropdown1">Features 1</label>

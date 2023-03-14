@@ -135,7 +135,7 @@
 	</style>
 </head>
 <body>
-	<h2 style="color: rgb(52, 69, 218);">Basic DataFrame Feature Analysis</h2>
+	<h2 style="color: #191970;">Basic DataFrame Feature Analysis</h2>
     <a href="{{ url_for('upload') }}" >
         <h5>Upload a File</h5>
     </a>
@@ -143,16 +143,16 @@
 	<h5 style="color: rgb(52, 69, 218);"><u>Visualization</u></h5>
 	</a>
 	<div class="container">
-		<div class="box1"><h1 style="color: rgb(52, 69, 218);">Feature Analysis on: {{filename}}</h1>
+		<div class="box1"><h1 style="color: #191970;">Feature Analysis on: {{filename}}</h1>
 			<P><u style="color: red;">Note:</u>   Mandatory to Select the Feature Distribution</P>
 	<form action="/features" method='POST'  onsubmit="return validateForm()" enctype="multipart/form-data">
-		<label for="dropdown1">Display All Features :</label>
+		<label for="dropdown1" style="color: #191970;">Display All Features :</label>
 		<select id="dropdown1" name="allfeatues">
             <option value="Select">Select</option>
 			<option value="YES">YES</option>
 		</select>
 
-		<label for="dropdown2">Display All Nulls :</label>
+		<label for="dropdown2" style="color: #191970;">Display All Nulls :</label>
 		<select id="dropdown2" name="df_nulls">
             <option value="Select">Select</option>
 			<option value="YES">YES</option>
@@ -165,7 +165,7 @@
 			<option value="NO">NO</option>
 		</select>-->
 
-		<label for="dropdown4">List of Outliers in Colums:</label>
+		<label for="dropdown4" style="color: #191970;">List of Outliers in Colums:</label>
 		<select id="dropdown4" name="column_null">
             <option value="Select">Select</option>
             {% for column in columns %}
@@ -181,19 +181,19 @@
             {% endfor %}
 		</select>-->
 
-		<label for="dropdown5">DataFrame Dtypes:</label>
+		<label for="dropdown5" style="color: #191970;">DataFrame Dtypes:</label>
 		<select id="dropdown5" name="data_types">
             <option value="Select">Select</option>
 			<option value="YES">YES</option>
 		</select>
 
-        <label for="dropdown5">DataFrame Shape:</label>
+        <label for="dropdown5" style="color: #191970;">DataFrame Shape:</label>
 		<select id="dropdown5" name="dfshape">
             <option value="Select">Select</option>
 			<option value="YES">YES</option>
 		</select>
 
-        <label for="dropdown6">Feature Distribution:</label>
+        <label for="dropdown6" style="color: #191970;">Feature Distribution:</label>
 		<select id="dropdown6" name="distribution">
             <option value="Select">Select</option>
             {% for column in columns %}
