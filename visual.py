@@ -11,6 +11,13 @@ def read_df(file_path,file_name):
     #print(df.head())
     return df
 
+## --- only numerical columns
+def get_numerical_columns(file_path, file_name):
+    dataframe = pd.read_csv(file_path+'/'+file_name, encoding='ISO-8859-1')
+    numerical_cols = dataframe.select_dtypes(include=[np.number]).columns
+    return numerical_cols
+
+
 
 def allFeatures(file_path,file_name):
     df = pd.read_csv(file_path+'/'+file_name,encoding='ISO-8859-1')
@@ -23,7 +30,7 @@ def df_nulls(file_path,file_name):
      cols = df.columns
      return df_nulls
 
-def feature_nulls(file_path,file_name,col_name):
+def feature_outliers(file_path,file_name,col_name):
     df =  pd.read_csv(file_path+'/'+file_name,encoding='ISO-8859-1')
     col_nulls = df[col_name].isnull().sum()
     return col_nulls
@@ -38,16 +45,21 @@ def dataframe_shape(file_path,file_name):
     dfshape = df.shape
     return dfshape
 
-def feature_distribution(file_path,file_name,col_name):
-    df =  pd.read_csv(file_path+'/'+file_name,encoding='ISO-8859-1')
-    #plt.figure(figsize=(12,7))
+def feature_distribution(file_path, file_name, col_name):
+    df = pd.read_csv(file_path+'/'+file_name, encoding='ISO-8859-1')
+    
+    numerical_cols = df.select_dtypes(include=[np.number]).columns
+    if col_name not in numerical_cols:
+        print(f"{col_name} is not a numerical column.")
+        return
+    
     plt.figure()
     plt.title(f'Histogram Plots for {col_name}')
     plt.xlabel(f'{col_name}')
     plt.ylabel("Density")
     plt.legend()
-    sns.distplot(a=df[col_name],hist=True,kde=True)
-    fig = plt.savefig('./static/images/distribution.png')
+    sns.distplot(a=df[col_name], hist=True, kde=True)
+
     #plt.show()
 
 def heatmap_data(data):

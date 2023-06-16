@@ -49,6 +49,7 @@ def features():
      global filename
      print('******File_name******:',filename)
      columns = allFeatures(file_path,filename)
+     numerical_columns = get_numerical_columns(file_path,filename)
      img_path = '../static/images/distribution.png'
      if request.method == 'POST':
         features = request.form.get('allfeatues')
@@ -59,6 +60,7 @@ def features():
         dist_col = request.form.get('distribution')
         #column_name = request.form.get('dropfeature')
         #print("***dropfeature***",column_name)
+        
         if features not in ['None','Select','NO']:
             feature_columns =  allFeatures(file_path,filename)
             feature_columns = feature_columns.tolist()
@@ -73,8 +75,8 @@ def features():
             dnulls="Please Select the Column"
 
         if col_null not in ['None','Select','NO']:
-            col_nulls = feature_nulls(file_path,filename,col_null)
-            #print("col_nulls:",col_nulls)
+            col_nulls = feature_outliers(file_path,filename,col_null)
+            #print("Feature_outliers:",col_nulls)
         else:
             col_nulls="Please Select the Column"
 
@@ -100,7 +102,8 @@ def features():
                                col_nulls=col_nulls,df_dtypes=df_dtypes,df_shape=df_shape,dist=dist,img_path=img_path,
                                col_null=col_null,filename=filename)
 
-     return render_template('features_analysis.html',columns=columns,filename=filename)
+     return render_template('features_analysis.html',columns=columns,filename=filename,
+                            numerical_columns=numerical_columns)
 
 
 @app.route('/visuallandingpage')

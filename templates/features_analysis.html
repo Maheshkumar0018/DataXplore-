@@ -195,10 +195,10 @@
 
         <label for="dropdown6" style="color: #191970;">Feature Distribution:</label>
 		<select id="dropdown6" name="distribution">
-            <option value="Select">Select</option>
-            {% for column in columns %}
-            <option value="{{ column }}">{{ column }}</option>
-            {% endfor %}
+			<option value="Select">Select</option>
+			{% for numerical_column in numerical_columns %}
+			<option value="{{ numerical_column }}">{{ numerical_column }}</option>
+			{% endfor %}
 		</select>
         
         <input type="submit" value="Submit">
