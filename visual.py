@@ -17,8 +17,6 @@ def get_numerical_columns(file_path, file_name):
     numerical_cols = dataframe.select_dtypes(include=[np.number]).columns
     return numerical_cols
 
-
-
 def allFeatures(file_path,file_name):
     df = pd.read_csv(file_path+'/'+file_name,encoding='ISO-8859-1')
     features = df.columns
@@ -34,6 +32,12 @@ def feature_outliers(file_path,file_name,col_name):
     df =  pd.read_csv(file_path+'/'+file_name,encoding='ISO-8859-1')
     col_nulls = df[col_name].isnull().sum()
     return col_nulls
+
+# describe
+def get_dataframe_stats(file_path, file_name):
+    df = pd.read_csv(file_path + '/' + file_name, encoding='ISO-8859-1')
+    stats = df.describe().to_html()
+    return stats
 
 def dataframe_dtypes(file_path,file_name):
     df =  pd.read_csv(file_path+'/'+file_name,encoding='ISO-8859-1')

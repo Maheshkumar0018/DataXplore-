@@ -165,12 +165,13 @@
 			<option value="NO">NO</option>
 		</select>-->
 
-		<label for="dropdown4" style="color: #191970;">List of Outliers in Colums:</label>
+		<label for="dropdown4" style="color: #191970;">DataFrame Description:</label>
 		<select id="dropdown4" name="column_null">
             <option value="Select">Select</option>
-            {% for column in columns %}
-            <option value="{{ column }}">{{ column }}</option>
-            {% endfor %}
+            <!-- {% for column in columns %}
+            <option value="{{ column }}">{{ column }}</option> 
+            {% endfor %} -->
+			<option value="YES">YES</option> 
 		</select>
 
 		<!--<label for="dropdown6">Drop Features :</label>
@@ -213,7 +214,7 @@
 	<br>
 	<p><strong><u>DataFrame_Nulls:</u></strong> {{dnulls}}</p>
 	<br>
-	<p><strong><u>{{col_null}}:</u></strong> {{col_nulls}}</p>
+	<p><strong><u>Description:</u></strong> {{ stats_table | safe }}</p>	
 	<br>
 	<p><strong><u>DataFrame Data Types:</u></strong> {{df_dtypes}}</p>
 	<br>

@@ -75,7 +75,8 @@ def features():
             dnulls="Please Select the Column"
 
         if col_null not in ['None','Select','NO']:
-            col_nulls = feature_outliers(file_path,filename,col_null)
+            #col_nulls = feature_outliers(file_path,filename,col_null)
+            stats_table = get_dataframe_stats(file_path, filename)
             #print("Feature_outliers:",col_nulls)
         else:
             col_nulls="Please Select the Column"
@@ -99,8 +100,8 @@ def features():
 
 
         return render_template('features_analysis.html',columns=columns,feature_columns=feature_columns,dnulls=dnulls,
-                               col_nulls=col_nulls,df_dtypes=df_dtypes,df_shape=df_shape,dist=dist,img_path=img_path,
-                               col_null=col_null,filename=filename)
+                               stats_table=stats_table,df_dtypes=df_dtypes,df_shape=df_shape,dist=dist,img_path=img_path,
+                               filename=filename)
 
      return render_template('features_analysis.html',columns=columns,filename=filename,
                             numerical_columns=numerical_columns)
