@@ -63,6 +63,7 @@ def feature_distribution(file_path, file_name, col_name):
     plt.ylabel("Density")
     plt.legend()
     sns.distplot(a=df[col_name], hist=True, kde=True)
+    fig = plt.savefig('./static/images/distribution.png')
 
     #plt.show()
 
