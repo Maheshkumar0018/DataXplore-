@@ -9,7 +9,7 @@
 		}
 
 		form {
-			max-width: 500px;
+			max-width: 750px;
 			margin: 0 auto;
 			padding: 20px;
 			background-color: #fff;
@@ -35,37 +35,59 @@
 		input[type="submit"]:hover {
 			background-color: #3e8e41;
 		}
+
 		.my-image {
-    		width: 100px;
-    		height: 100px;
-    		border: 1px solid black;
+			width: 100px;
+			height: 100px;
+			border: 1px solid black;
 			position: fixed;
-  		}	
-		img {
-  			width: 100%;
-  			height: auto;
 		}
+
+		img {
+			width: 100%;
+			height: auto;
+		}
+
+		.container {
+			background-color: #8cb3d9;
+			padding: 20px;
+			border-radius: 5px;
+			margin-top: 20px;
+		}
+
+		.container p {
+			margin: 10px 0;
+			color: #fff;
+		}
+
+		.container a {
+			display: block;
+			margin-bottom: 20px;
+		}
+
 	</style>
 </head>
 <body>
 	<form action="/upload" method='POST' enctype="multipart/form-data">
-		<h2>File Upload</h2>
-		<input type="file" name="file" id="file">
-		<input type="submit" value="Upload">
-		{% with messages = get_flashed_messages() %}  
-         	{% if messages %}  
-               {% for message in messages %}  
-                    <p style="color: rgb(218, 52, 52);">{{ message }}</p>  
-               {% endfor %}  
-         	{% endif %}  
-      	{% endwith %} 
-		<div>
+		<div class="container">
+			<h2>File Upload</h2>
+			<input type="file" name="file" id="file">
+			<input type="submit" value="Upload">
+			{% with messages = get_flashed_messages() %}
+			{% if messages %}
+			{% for message in messages %}
+			<p style="color: rgb(218, 52, 52);">{{ message }}</p>
+			{% endfor %}
+			{% endif %}
+			{% endwith %}
+		</div>
+		<div class="container">
 			<p>Feature Analysis</p>
-			<a href="{{ url_for('features') }}" >
+			<a href="{{ url_for('features') }}">
 				<img src="https://confusedcoders.com/wp-content/uploads/2018/10/1_eVZyKIcUXOfzPrMTGx7yVw.png" alt="Feature Analysis">
 			</a>
 			<p>Visualization</p>
-			<a href="{{ url_for('visuallandingpage') }}" >
+			<a href="{{ url_for('visuallandingpage') }}">
 				<img src="https://www.springboard.com/blog/wp-content/uploads/2020/10/dataset-analysis.png" alt="Feature Analysis">
 			</a>
 		</div>
