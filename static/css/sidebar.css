@@ -79,13 +79,6 @@
     width: 50%; 
   }  
 
-
-
-
-
-
-
-
   body {
     background-color: #F5F5F5;
     font-family: Arial, sans-serif;
@@ -98,6 +91,7 @@
 h1 {
     font-size: 24px;
     margin: 20px 0;
+    margin-top: 67px;
 }
 
 form {
@@ -154,10 +148,11 @@ input[type="submit"] {
 }
 h5 {
     margin-top: 20px;
-    margin-left: 30px;
+    margin-left: 3px;
 }
 .container {
       overflow: auto; 
+      
 }
 
 .box1 {
@@ -177,6 +172,12 @@ strong {
       font-weight: bold;
 }
 img {
-  width: 100%;
+  width: 97%;
   height: auto;
+  margin-left: -155px;
+  margin-top: 25px;
+}
+.second{
+  margin-left: 200px;
+  margin-top: -33px;
 }

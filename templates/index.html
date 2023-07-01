@@ -5,16 +5,45 @@
 	<style>
 		body {
 			font-family: Arial, sans-serif;
-			background-color: #f7f7f7;
+			background-image: url("../static/images/background.jpg");
+			background-size: cover;
+			background-position: center;
+			margin: 0;
+			padding: 0;
+			overflow: hidden; /* Prevent content from overflowing */
+		}
+
+		.background-blur {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background-image: url("../static/images/background.jpg");
+			background-size: cover;
+			background-position: center;
+			filter: blur(10px); /* Adjust the blur intensity as needed */
+			z-index: -1; /* Place the blurred background behind other content */
+		}
+
+		.grid-container {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			grid-gap: 20px;
+			max-width: 950px;
+			margin: 0 auto;
+			padding: 20px;
+			align-items: center;
+			justify-content: center;
+			margin-top: 150px;
 		}
 
 		form {
-			max-width: 750px;
-			margin: 0 auto;
-			padding: 20px;
 			background-color: #fff;
 			border-radius: 5px;
 			box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
+			padding: 25px;
+			background-color: #8cb3d9;
 		}
 
 		input[type="file"] {
@@ -46,51 +75,62 @@
 		img {
 			width: 100%;
 			height: auto;
+			object-fit: cover;
 		}
 
 		.container {
 			background-color: #8cb3d9;
 			padding: 20px;
 			border-radius: 5px;
-			margin-top: 20px;
+			transition: transform 0.3s ease;
+		}
+
+		.container:hover {
+			transform: scale(1.05);
 		}
 
 		.container p {
 			margin: 10px 0;
-			color: #fff;
+			color: #240303;
+			font-size: 24px;
+			font-weight: bold;
 		}
 
 		.container a {
 			display: block;
 			margin-bottom: 20px;
 		}
-
 	</style>
 </head>
 <body>
-	<form action="/upload" method='POST' enctype="multipart/form-data">
-		<div class="container">
-			<h2>File Upload</h2>
-			<input type="file" name="file" id="file">
-			<input type="submit" value="Upload">
-			{% with messages = get_flashed_messages() %}
-			{% if messages %}
-			{% for message in messages %}
-			<p style="color: rgb(218, 52, 52);">{{ message }}</p>
-			{% endfor %}
-			{% endif %}
-			{% endwith %}
-		</div>
+	<div class="background-blur"></div>
+	<div class="grid-container">
+		<form action="/upload" method='POST' enctype="multipart/form-data">
+			<div class="container">
+				<h2>File Upload</h2>
+				<input type="file" name="file" id="file">
+				<input type="submit" value="Upload">
+				{% with messages = get_flashed_messages() %}
+				{% if messages %}
+				{% for message in messages %}
+				<p style="color: rgb(218, 52, 52);">{{ message }}</p>
+				{% endfor %}
+				{% endif %}
+				{% endwith %}
+			</div>
+		</form>
 		<div class="container">
 			<p>Feature Analysis</p>
 			<a href="{{ url_for('features') }}">
 				<img src="https://confusedcoders.com/wp-content/uploads/2018/10/1_eVZyKIcUXOfzPrMTGx7yVw.png" alt="Feature Analysis">
 			</a>
+		</div>
+		<div class="container">
 			<p>Visualization</p>
 			<a href="{{ url_for('visuallandingpage') }}">
 				<img src="https://www.springboard.com/blog/wp-content/uploads/2020/10/dataset-analysis.png" alt="Feature Analysis">
 			</a>
 		</div>
-	</form>
+	</div>
 </body>
 </html>
