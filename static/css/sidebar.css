@@ -67,7 +67,7 @@
   
   /* When the sidebar is visible, push the page content to the right */
   .sidebar.open-nav {
-    width: calc(100% - 250px);
+    /* width: calc(100% - 250px); */
   }
   
   /* When the sidebar is visible, show the close button */
@@ -100,7 +100,7 @@ form {
     box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
     margin: 20px auto;
     padding: 20px;
-    width: 80%; /*background wight*/
+    width: 74%; /*background wight*/
 }
 
 label {
@@ -174,7 +174,7 @@ strong {
 img {
   width: 97%;
   height: auto;
-  margin-left: -155px;
+  margin-left: -140px;
   margin-top: 25px;
 }
 .second{

@@ -167,7 +167,7 @@
 		<label for="dropdown1">Features </label>
 		<select id="dropdown1" name="histfeature">
             <option value="Select">Select</option>
-            {% for column in columns %}
+            {% for column in numerical_columns %}
             <option value="{{ column }}">{{ column }}</option>
             {% endfor %}
 		</select>

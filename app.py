@@ -133,6 +133,7 @@ def pairplot():
     img_path = '../static/images/distribution.png'
     columns = allFeatures(file_path,filename)
     columns = columns.to_list()
+    numerical_columns = get_numerical_columns(file_path,filename)
     if request.method == 'POST':
         pairfeat1 = request.form.get('pairfeature1')
         pairfeat2 = request.form.get('pairfeature2')
@@ -144,14 +145,17 @@ def pairplot():
         data = df[[pairfeat1,pairfeat2,pairfeat3]]
         pair = pairplot_data(data)
 
-        return render_template('pairplot.html',columns=columns,img_path=img_path,filename=filename)
-    return render_template('pairplot.html',columns=columns,filename=filename)
+        return render_template('pairplot.html',columns=columns,img_path=img_path,filename=filename,
+                               numerical_columns=numerical_columns)
+    return render_template('pairplot.html',columns=columns,filename=filename,
+                           numerical_columns=numerical_columns)
 
 @app.route('/boxplot',methods=['GET', 'POST'])
 def boxplot():
     img_path = '../static/images/distribution.png'
     columns = allFeatures(file_path,filename)
     columns = columns.to_list()
+    numerical_columns = get_numerical_columns(file_path,filename)
     if request.method == 'POST':
         feat1 =  request.form.get('feature1')
         feat2 =  request.form.get('feature2')
@@ -163,22 +167,27 @@ def boxplot():
         data = df[[feat1,feat2,feat3]]
         box = boxplot_data(data)
 
-        return render_template('boxplot.html',columns=columns,img_path=img_path,filename=filename)
-    return render_template('boxplot.html',columns=columns,filename=filename)
+        return render_template('boxplot.html',columns=columns,img_path=img_path,filename=filename,
+                               numerical_columns=numerical_columns)
+    return render_template('boxplot.html',columns=columns,filename=filename,
+                           numerical_columns=numerical_columns)
 
 @app.route('/histogram',methods=['GET', 'POST'])
 def histogram():
     img_path = '../static/images/distribution.png'
     columns = allFeatures(file_path,filename)
     columns = columns.to_list()
+    numerical_columns = get_numerical_columns(file_path,filename)
     if request.method == 'POST':
         histcol =  request.form.get('histfeature')
         #print("*******Histogram*********",hist)
         data = pd.read_csv(file_path+'/'+filename,encoding='ISO-8859-1')
         his = histogram_data(data, histcol, hue='Select')
 
-        return render_template('Histogram.html',columns=columns,img_path=img_path,filename=filename)
-    return render_template('Histogram.html',columns=columns,filename=filename)
+        return render_template('Histogram.html',columns=columns,img_path=img_path,filename=filename,
+                               numerical_columns=numerical_columns)
+    return render_template('Histogram.html',columns=columns,filename=filename,
+                           numerical_columns=numerical_columns)
 
 if __name__ == '__main__':
 	app.run(debug=True)
