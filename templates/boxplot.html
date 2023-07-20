@@ -109,11 +109,8 @@
             border-radius: 5px;
             cursor: pointer;
         }
-        h5 {
-            margin-top: 68px;
-        }
-		.h5 {
-            margin-top: 0px; 
+		h5 {
+            margin-top: 81px;
         }
 		.container {
   			overflow: auto; 
@@ -121,14 +118,15 @@
 
 		.box1 {
   			float: left; 
-  			width: 50%; 
+  			width: 45%;
+			border: 2px solid blue;
 		}
 
 		.box2 {
   			float: left; 
   			width: 50%; 
-            margin-left: 554px;
-            margin-top: -322px;
+			margin-top: 100px;
+			border: 2px solid red;
 		}
 		u {
   			text-decoration: underline;
@@ -162,6 +160,7 @@
 			<h5 class="h5">Feature Analysis</h5>
 		</a>
 		<div class="box1"><h2 style="color: rgb(52, 69, 218);">Box Plot</h2>
+			
 			<p style="color: rgb(218, 52, 52);"><u>Note: </u> Please Select the Different Features</p>
 			<span>Uploaded File: {{filename}}</span>
 	<form action="/boxplot" method='POST'  onsubmit="return validateForm()" enctype="multipart/form-data">

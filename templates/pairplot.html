@@ -110,24 +110,27 @@
             cursor: pointer;
         }
         h5 {
-            margin-top: 20px;
-            margin-left: 30px;
+            margin-top: 81px;
+			margin-left: 3px;
         }
+		
 		.container {
   			overflow: auto; 
 		}
 
 		.box1 {
   			float: left; 
-  			width: 50%; 
+  			width: 45%;
+			border: 2px solid blue;
 		}
 
 		.box2 {
   			float: left; 
   			width: 50%; 
-            margin-left: 554px;
-            margin-top: -322px;
+			margin-top: 0px;
+			border: 2px solid red;
 		}
+
 		u {
   			text-decoration: underline;
 		}
@@ -141,13 +144,7 @@
 	</style>
 </head>
 <body>
-	<h1>Basic DataFrame Feature Analysis</h1>
-    <a href="{{ url_for('upload') }}" >
-        <h5>Upload a File</h5>
-    </a>
-	<a href="{{ url_for('features') }}" >
-        <h5>Feature Analysis</h5>
-    </a>
+    
     <div class="sidebar">
         <button class="open-btn" onclick="openNav()">☰ Open Sidebar</button>
         <nav id="mySidenav" class="sidenav">
@@ -159,6 +156,14 @@
         </nav>
     </div>
 	<div class="container">
+
+		<a href="{{ url_for('upload') }}" >
+			<h5>Upload a File</h5>
+		</a>
+		<a href="{{ url_for('features') }}" >
+			<h5 class="h5">Feature Analysis</h5>
+		</a>
+
 		<div class="box1"><h2 style="color: rgb(52, 69, 218);">Pair Plot</h2>
 			<p style="color: rgb(218, 52, 52);"><u>Note: </u> Please Select the Different Features</p>
 			<span>Uploaded File: {{filename}}</span>

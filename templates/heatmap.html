@@ -10,6 +10,11 @@
     <link rel="stylesheet" type="text/css" href="../static/Common.css">
     <style>
         /* Add your custom styles here */
+        h5 {
+            margin-top: 81px;
+            border: 2px solid red;
+            margin-left: 3px;
+        }
     </style>
 </head>
 <body>
@@ -24,14 +29,15 @@
         </nav>
     </div>
     <div class="container">
-        <h1>Basic DataFrame Feature Analysis</h1>
-        <a href="{{ url_for('upload') }}">
-            <h5>Upload a File</h5>
-        </a>
-        <a href="{{ url_for('features') }}">
-            <h5 class="second">Feature Analysis</h5>
-        </a>
         <div id="content">
+
+            <a href="{{ url_for('upload') }}">
+                <h5>Upload a File</h5>
+            </a>
+            <a href="{{ url_for('features') }}">
+                <h5 class="second">Feature Analysis</h5>
+            </a>
+
             <div class="box1">
                 <h2>Heat Map</h2>
                 <span>Uploaded File: {{filename}}</span>
