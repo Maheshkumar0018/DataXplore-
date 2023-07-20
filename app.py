@@ -2,6 +2,7 @@ from flask import Flask,render_template,redirect,request,flash,url_for
 from werkzeug.utils import secure_filename
 from werkzeug.exceptions import RequestEntityTooLarge
 import os
+from PIL import Image, ImageDraw, ImageFont
 from visual import *
 
 file_path = r'C:\Users\mkmt724\Documents\App\uploads'
@@ -58,8 +59,6 @@ def features():
         dtype = request.form.get('data_types')
         dfshape = request.form.get('dfshape')
         dist_col = request.form.get('distribution')
-        #column_name = request.form.get('dropfeature')
-        #print("***dropfeature***",column_name)
         
         if features not in ['None','Select','NO']:
             feature_columns =  allFeatures(file_path,filename)
@@ -74,33 +73,40 @@ def features():
         else:
             dnulls="Please Select the Column"
 
+        # describe
         if col_null not in ['None','Select','NO']:
-            #col_nulls = feature_outliers(file_path,filename,col_null)
             stats_table = get_dataframe_stats(file_path, filename)
-            #print("Feature_outliers:",col_nulls)
         else:
-            col_nulls="Please Select the Column"
+            stats_table = 'Please Select the Column'
 
         if dtype not in ['None','Select','NO']:
             df_dtypes = dataframe_dtypes(file_path,filename)
-            #print("df_dtypes:",df_dtypes)
         else:
             df_dtypes="Please Select the Column"
 
         if dfshape not in ['None','Select','NO']:
             df_shape = dataframe_shape(file_path,filename)
-            #print("dfshape:",df_shape)
         else:
             df_shape="Please Select the Column"
 
-        if dist_col not in ['None','Select','NO']:
-            dist = feature_distribution(file_path,filename,dist_col)
+        if dist_col not in ['None', 'Select', 'NO']:
+            dist = feature_distribution(file_path,filename,dist_col)       
         else:
-            dist="Please Select the Column"
+            #print('it enters into no numeric fun')
+            blank_image = Image.new('RGB', (800, 600), (255, 255, 255))
+            # Add the text to the image
+            draw = ImageDraw.Draw(blank_image)
+            text = " No Numerical columns, unable to create the Distribution plot."
+            font = ImageFont.truetype("arial.ttf", 24)  # Replace "arial.ttf" with the path to your font file.
+            text_width, text_height = draw.textsize(text, font=font)
+            text_position = ((blank_image.width - text_width) // 2, (blank_image.height - text_height) // 2)
+            fill_color = (255, 0, 0)  # Red color
+            draw.text(text_position, text, font=font, fill=fill_color)
+            blank_image.save('./static/images/distribution.png')
 
 
         return render_template('features_analysis.html',columns=columns,feature_columns=feature_columns,dnulls=dnulls,
-                               stats_table=stats_table,df_dtypes=df_dtypes,df_shape=df_shape,dist=dist,img_path=img_path,
+                               stats_table=stats_table,df_dtypes=df_dtypes,df_shape=df_shape,img_path=img_path,
                                filename=filename)
 
      return render_template('features_analysis.html',columns=columns,filename=filename,

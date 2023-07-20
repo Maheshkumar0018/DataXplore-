@@ -4,7 +4,7 @@ function openNav() {
   document.querySelector(".sidebar").classList.add("open-nav");
   document.querySelector(".container").style.marginLeft = "250px";
   document.querySelector(".box1").style.backgroundColor = "transparent";
-  document.querySelector(".box2").style.marginLeft = "250px";
+  /*document.querySelector(".box2").style.marginLeft = "250px";*/
 }
 
 /* Close the sidebar */

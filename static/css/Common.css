@@ -1,6 +1,6 @@
 .box2 {
     float: left; 
-    width: 50%; 
+
     height: 300px; /* Adjust the desired height for the scrollbar */
     overflow-y: auto; /* Enable vertical scrollbar */
     padding-right: 20px; /* Add padding to avoid scrollbar overlapping content */

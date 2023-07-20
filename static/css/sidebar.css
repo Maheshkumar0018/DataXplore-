@@ -75,8 +75,7 @@
     display: none;
   }
   .box2 {
-    float: left; 
-    width: 50%; 
+    float: left;  
   }  
 
   body {
@@ -157,13 +156,11 @@ h5 {
 
 .box1 {
       float: left; 
-      width: 50%; 
+      width: 100%; 
 }
 
 .box2 {
       float: left; 
-      width: 50%; 
-      margin-left: 150px;
 }
 u {
       text-decoration: underline;
@@ -172,10 +169,8 @@ strong {
       font-weight: bold;
 }
 img {
-  width: 97%;
   height: auto;
-  margin-left: -140px;
-  margin-top: 25px;
+  height: 314px;
 }
 .second{
   margin-left: 200px;
