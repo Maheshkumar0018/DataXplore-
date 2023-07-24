@@ -13,5 +13,6 @@ function closeNav() {
   document.querySelector(".sidebar").classList.remove("open-nav");
   document.querySelector(".container").style.marginLeft = "0";
   document.querySelector(".box1").style.backgroundColor = "#F8F8F8";
+  document.querySelector(".box1").style.marginLeft = '50px';
   document.querySelector(".box2").style.marginLeft = "0";
 }
