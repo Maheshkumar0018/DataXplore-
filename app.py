@@ -122,16 +122,25 @@ def visuallandingpage():
 
     return render_template('visual_index.html',filename=filename)
 
-@app.route('/heatmap')
+@app.route('/heatmap',methods=['GET', 'POST'])
 def heatmap():
     global filename
     img_path = '../static/images/distribution.png'
-    #print("*******selected_file:", filename)
     data = read_df(file_path,filename)
-    #print("***head:",data)
-    heat = heatmap_data(data)
+    numerical_columns = get_numerical_columns(file_path,filename)
+    if request.method == 'POST':
+        feature_1 = request.form.get('heatmap_fe_1')
+        feature_2 = request.form.get('heatmap_fe_2')
+        #print('column_heatmap_1',feature_1)
+        #print('column_heatmap_2',feature_2)
+        df = pd.read_csv(file_path+'/'+filename,encoding='ISO-8859-1')
+        heat = heatmap_data(df,feature_1,feature_2)
 
-    return render_template('heatmap.html',img_path=img_path,filename=filename)
+        return render_template('heatmap.html',img_path=img_path,filename=filename,
+                           numerical_columns=numerical_columns)
+
+    return render_template('heatmap.html',filename=filename,
+                           numerical_columns=numerical_columns)
 
 @app.route('/pairplot',methods=['GET', 'POST'])
 def pairplot():

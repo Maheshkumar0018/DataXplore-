@@ -67,19 +67,20 @@ def feature_distribution(file_path, file_name, col_name):
 
     #plt.show()
 
-def heatmap_data(data):
-    #print("*****************inside heatmap_data*********************")
-    #print(data)
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+def heatmap_data(data, column1, column2):
+    if column1 not in data.columns or column2 not in data.columns:
+        raise ValueError("The specified columns do not exist in the DataFrame.")
+    X = data[[column1, column2]]
     plt.figure()
-    X = data
     ax = plt.figure(dpi=500, facecolor='white')
     ax.tight_layout()
     sns.set(font_scale=0.5)
     plt.title('Correlation Matrix')
-    sns.heatmap(abs(X.corr()), fmt=".2f", cmap="seismic",
-                annot=True, linewidths=.5, )
+    sns.heatmap(abs(X.corr()), fmt=".2f", cmap="seismic", annot=True, linewidths=.5)
     fig = plt.savefig('./static/images/distribution.png')
-    #plt.show()
 
 def boxplot_data(data):
     plt.figure()
