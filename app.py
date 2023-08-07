@@ -40,7 +40,7 @@ def upload():
             #print(fun)
         else:
             print("Please Select Correct File")
-            flash("Please Select Correct File")
+            flash(filename+'  is not an '+'CSV or XLXS')
     
     return redirect('/')
 
@@ -131,10 +131,21 @@ def heatmap():
     if request.method == 'POST':
         feature_1 = request.form.get('heatmap_fe_1')
         feature_2 = request.form.get('heatmap_fe_2')
-        #print('column_heatmap_1',feature_1)
-        #print('column_heatmap_2',feature_2)
-        df = pd.read_csv(file_path+'/'+filename,encoding='ISO-8859-1')
-        heat = heatmap_data(df,feature_1,feature_2)
+
+        if (feature_1 != 'Select' and feature_2 != 'Select'):
+            df = pd.read_csv(file_path+'/'+filename,encoding='ISO-8859-1')
+            heat = heatmap_data(df,feature_1,feature_2)
+        else:
+            blank_image = Image.new('RGB', (800, 600), (255, 255, 255))
+            # Add the text to the image
+            draw = ImageDraw.Draw(blank_image)
+            text = " Please select Features to create HeatMap."
+            font = ImageFont.truetype("arial.ttf", 24)   # Replace "arial.ttf" with the path to your font file.
+            text_width, text_height = draw.textsize(text, font=font)
+            text_position = ((blank_image.width - text_width) // 2, (blank_image.height - text_height) // 2)
+            fill_color = (255, 0, 0)  # Red color
+            draw.text(text_position, text, font=font, fill=fill_color)
+            blank_image.save('./static/images/distribution.png')
 
         return render_template('heatmap.html',img_path=img_path,filename=filename,
                            numerical_columns=numerical_columns)
@@ -153,12 +164,23 @@ def pairplot():
         pairfeat1 = request.form.get('pairfeature1')
         pairfeat2 = request.form.get('pairfeature2')
         pairfeat3 = request.form.get('pairfeature3')
-        #print("****Feature1*****",pairfeat1)
-        #print("****Feature2*****",pairfeat2)
-        #print("****Feature3*****",pairfeat3)
-        df = pd.read_csv(file_path+'/'+filename,encoding='ISO-8859-1')
-        data = df[[pairfeat1,pairfeat2,pairfeat3]]
-        pair = pairplot_data(data)
+
+        if (pairfeat1 != 'Select' and pairfeat2 != 'Select' and pairfeat3 != 'Select'):
+            df = pd.read_csv(file_path+'/'+filename,encoding='ISO-8859-1')
+            data = df[[pairfeat1,pairfeat2,pairfeat3]]
+            pair = pairplot_data(data)
+        else:
+            blank_image = Image.new('RGB', (800, 600), (255, 255, 255))
+            # Add the text to the image
+            draw = ImageDraw.Draw(blank_image)
+            text = " Please select Features to create Pairplot."
+            font = ImageFont.truetype("arial.ttf", 24)   # Replace "arial.ttf" with the path to your font file.
+            text_width, text_height = draw.textsize(text, font=font)
+            text_position = ((blank_image.width - text_width) // 2, (blank_image.height - text_height) // 2)
+            fill_color = (255, 0, 0)  # Red color
+            draw.text(text_position, text, font=font, fill=fill_color)
+            blank_image.save('./static/images/distribution.png')
+
 
         return render_template('pairplot.html',columns=columns,img_path=img_path,filename=filename,
                                numerical_columns=numerical_columns)
@@ -175,12 +197,22 @@ def boxplot():
         feat1 =  request.form.get('feature1')
         feat2 =  request.form.get('feature2')
         feat3 =  request.form.get('feature3')
-        #print("*****feature1*******",feat1)
-        #print("*****feature2*******",feat2)
-        #print("*****feature3*******",feat3)
-        df = pd.read_csv(file_path+'/'+filename,encoding='ISO-8859-1')
-        data = df[[feat1,feat2,feat3]]
-        box = boxplot_data(data)
+
+        if (feat1 != 'Select' and feat2 != 'Select' and feat3 != 'Select'):
+            df = pd.read_csv(file_path+'/'+filename,encoding='ISO-8859-1')
+            data = df[[feat1,feat2,feat3]]
+            box = boxplot_data(data)
+        else:
+            blank_image = Image.new('RGB', (800, 600), (255, 255, 255))
+            # Add the text to the image
+            draw = ImageDraw.Draw(blank_image)
+            text = " Please select Features to create BoxPlot."
+            font = ImageFont.truetype("arial.ttf", 24)   # Replace "arial.ttf" with the path to your font file.
+            text_width, text_height = draw.textsize(text, font=font)
+            text_position = ((blank_image.width - text_width) // 2, (blank_image.height - text_height) // 2)
+            fill_color = (255, 0, 0)  # Red color
+            draw.text(text_position, text, font=font, fill=fill_color)
+            blank_image.save('./static/images/distribution.png')
 
         return render_template('boxplot.html',columns=columns,img_path=img_path,filename=filename,
                                numerical_columns=numerical_columns)
@@ -195,14 +227,134 @@ def histogram():
     numerical_columns = get_numerical_columns(file_path,filename)
     if request.method == 'POST':
         histcol =  request.form.get('histfeature')
-        #print("*******Histogram*********",hist)
-        data = pd.read_csv(file_path+'/'+filename,encoding='ISO-8859-1')
-        his = histogram_data(data, histcol, hue='Select')
+
+        if histcol != 'Select':
+            data = pd.read_csv(file_path+'/'+filename,encoding='ISO-8859-1')
+            his = histogram_data(data, histcol, hue='Select')
+        else:
+            blank_image = Image.new('RGB', (800, 600), (255, 255, 255))
+            # Add the text to the image
+            draw = ImageDraw.Draw(blank_image)
+            text = " Please select Features to create Histogram's."
+            font = ImageFont.truetype("arial.ttf", 24)   # Replace "arial.ttf" with the path to your font file.
+            text_width, text_height = draw.textsize(text, font=font)
+            text_position = ((blank_image.width - text_width) // 2, (blank_image.height - text_height) // 2)
+            fill_color = (255, 0, 0)  # Red color
+            draw.text(text_position, text, font=font, fill=fill_color)
+            blank_image.save('./static/images/distribution.png')
 
         return render_template('Histogram.html',columns=columns,img_path=img_path,filename=filename,
                                numerical_columns=numerical_columns)
     return render_template('Histogram.html',columns=columns,filename=filename,
                            numerical_columns=numerical_columns)
+
+
+
+@app.route('/permplot',methods = ['GET','POST'])
+def permplot():
+    img_path = '../static/images/distribution.png'
+    numerical_columns = get_numerical_columns(file_path,filename)
+    if request.method == 'POST':
+        output_cols = request.form.get('perm_fet_1')
+        if output_cols != 'Select':
+            df = pd.read_csv(file_path+'/'+filename,encoding='ISO-8859-1')
+            # Identify non-numeric columns
+            non_numeric_columns = df.select_dtypes(include=['object']).columns.tolist()
+            # Drop non-numeric columns
+            df = df.drop(non_numeric_columns, axis=1) 
+            # Handle missing values in df
+            df.dropna(subset=[output_cols], inplace=True)
+            out_column = output_cols
+            inputs = df.columns.tolist()
+            inputs.remove(out_column)
+
+            perm = Perm_plot(df, out_column, inputs)
+        else:
+            blank_image = Image.new('RGB', (800, 600), (255, 255, 255))
+            # Add the text to the image
+            draw = ImageDraw.Draw(blank_image)
+            text = " Please select Features to create PermPlot."
+            font = ImageFont.truetype("arial.ttf", 24)   # Replace "arial.ttf" with the path to your font file.
+            text_width, text_height = draw.textsize(text, font=font)
+            text_position = ((blank_image.width - text_width) // 2, (blank_image.height - text_height) // 2)
+            fill_color = (255, 0, 0)  # Red color
+            draw.text(text_position, text, font=font, fill=fill_color)
+            blank_image.save('./static/images/distribution.png')
+
+        return render_template('permplot.html',img_path=img_path,numerical_columns=numerical_columns,
+                           filename=filename)
+    
+    return render_template('permplot.html',numerical_columns=numerical_columns,filename=filename)
+
+
+
+@app.route('/scaleplot',methods = ['GET','POST'])
+def scaleplot():
+    img_path = '../static/images/distribution.png'
+    if request.method == 'POST':
+        inputs =request.form.get('sale_feat')
+        if inputs == 'Yes':
+            df = pd.read_csv(file_path+'/'+filename,encoding='ISO-8859-1')
+            # Select and drop object columns
+            non_object_columns = df.select_dtypes(exclude=['object'])
+            object_columns = df.select_dtypes(include=['object'])
+            df = df.drop(object_columns, axis=1)
+            # Get the list of input columns after dropping object columns
+            inputs = non_object_columns.columns.tolist()
+            Scaleplot(df, inputs)
+        else:
+            blank_image = Image.new('RGB', (800, 600), (255, 255, 255))
+            # Add the text to the image
+            draw = ImageDraw.Draw(blank_image)
+            text = " Please select Yes to create ScalePlot."
+            font = ImageFont.truetype("arial.ttf", 24)  # Replace "arial.ttf" with the path to your font file.
+            text_width, text_height = draw.textsize(text, font=font)
+            text_position = ((blank_image.width - text_width) // 2, (blank_image.height - text_height) // 2)
+            fill_color = (255, 0, 0)  # Red color
+            draw.text(text_position, text, font=font, fill=fill_color)
+            blank_image.save('./static/images/distribution.png')
+
+        return render_template('scaleplot.html',img_path=img_path,filename=filename)
+    
+    return render_template('scaleplot.html',filename=filename)
+
+
+
+
+@app.route('/shapplot',methods = ['GET','POST'])
+def shapplot():
+    numerical_columns = get_numerical_columns(file_path,filename)
+    img_path = '../static/images/distribution.png'
+    if request.method == 'POST':
+        out_column =request.form.get('shap_feat')
+        if out_column != 'Select':
+            df = pd.read_csv(file_path+'/'+filename,encoding='ISO-8859-1')
+            # Select and drop object columns
+            non_object_columns = df.select_dtypes(exclude=['object'])
+            object_columns = df.select_dtypes(include=['object'])
+            df = df.drop(object_columns, axis=1)
+            inputs = df.columns.tolist() 
+            Shap_plot(df,out_column,inputs)
+        else:
+            blank_image = Image.new('RGB', (800, 600), (255, 255, 255))
+            # Add the text to the image
+            draw = ImageDraw.Draw(blank_image)
+            text = " Please select Yes to create ShapPlot."
+            font = ImageFont.truetype("arial.ttf", 24)  # Replace "arial.ttf" with the path to your font file.
+            text_width, text_height = draw.textsize(text, font=font)
+            text_position = ((blank_image.width - text_width) // 2, (blank_image.height - text_height) // 2)
+            fill_color = (255, 0, 0)  # Red color
+            draw.text(text_position, text, font=font, fill=fill_color)
+            blank_image.save('./static/images/distribution.png')
+
+        return render_template('shapplot.html',img_path=img_path,filename=filename,
+                               numerical_columns=numerical_columns)
+    
+    return render_template('shapplot.html',filename=filename,numerical_columns=numerical_columns)
+
+
+
+
 
 if __name__ == '__main__':
 	app.run(debug=True)
