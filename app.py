@@ -320,7 +320,6 @@ def scaleplot():
 
 
 
-
 @app.route('/shapplot',methods = ['GET','POST'])
 def shapplot():
     numerical_columns = get_numerical_columns(file_path,filename)
@@ -354,6 +353,70 @@ def shapplot():
 
 
 
+@app.route('/mutual_index',methods = ['GET','POST'])
+def mutual_index():
+    numerical_columns = get_numerical_columns(file_path,filename)
+    img_path = '../static/images/distribution.png'
+    if request.method == 'POST':
+        out_column =request.form.get('mutal_indx')
+        if out_column != 'Select':
+            df = pd.read_csv(file_path + '/' + filename, encoding='ISO-8859-1')
+            non_object_columns = df.select_dtypes(exclude=['object'])
+            object_columns = df.select_dtypes(include=['object'])
+            df = df.drop(object_columns, axis=1)
+            inputs = df.columns.tolist()
+            mutual_index_plot(df, inputs, [out_column])
+        else:
+            blank_image = Image.new('RGB', (800, 600), (255, 255, 255))
+            # Add the text to the image
+            draw = ImageDraw.Draw(blank_image)
+            text = " Please select Yes to create Mutual Index Plot."
+            font = ImageFont.truetype("arial.ttf", 24)  # Replace "arial.ttf" with the path to your font file.
+            text_width, text_height = draw.textsize(text, font=font)
+            text_position = ((blank_image.width - text_width) // 2, (blank_image.height - text_height) // 2)
+            fill_color = (255, 0, 0)  # Red color
+            draw.text(text_position, text, font=font, fill=fill_color)
+            blank_image.save('./static/images/distribution.png')
+
+        return render_template('mutual_index.html',img_path=img_path,filename=filename,
+                               numerical_columns=numerical_columns)
+    
+    return render_template('mutual_index.html',filename=filename,numerical_columns=numerical_columns)
+
+
+
+@app.route('/bubbleplot',methods = ['GET','POST'])
+def bubbleplot():
+    numerical_columns = get_numerical_columns(file_path,filename)
+    img_path = '../static/images/distribution.png'
+    if request.method == 'POST':
+        X = request.form.get('bubble_1')
+        Y = request.form.get('bubble_2')
+        Z = request.form.get('bubble_3')
+
+        if (X != 'Select' and Y != 'Select' and Z != 'Select'):
+            df = pd.read_csv(file_path + '/' + filename, encoding='ISO-8859-1')
+            non_object_columns = df.select_dtypes(exclude=['object'])
+            object_columns = df.select_dtypes(include=['object'])
+            df = df.drop(object_columns, axis=1)
+            bubble_plot(df, X, Y, Z, hue = Z )
+           
+        else:
+            blank_image = Image.new('RGB', (800, 600), (255, 255, 255))
+            # Add the text to the image
+            draw = ImageDraw.Draw(blank_image)
+            text = " Please select Yes to create Mutual Index Plot."
+            font = ImageFont.truetype("arial.ttf", 24)  # Replace "arial.ttf" with the path to your font file.
+            text_width, text_height = draw.textsize(text, font=font)
+            text_position = ((blank_image.width - text_width) // 2, (blank_image.height - text_height) // 2)
+            fill_color = (255, 0, 0)  # Red color
+            draw.text(text_position, text, font=font, fill=fill_color)
+            blank_image.save('./static/images/distribution.png')
+
+        return render_template('bubble_plot.html',img_path=img_path,filename=filename,
+                               numerical_columns=numerical_columns)
+    
+    return render_template('bubble_plot.html',filename=filename,numerical_columns=numerical_columns)
 
 
 if __name__ == '__main__':
