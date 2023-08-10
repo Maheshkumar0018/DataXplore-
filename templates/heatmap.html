@@ -141,6 +141,19 @@
 			margin-left: 145px;
     		margin-top: -31px;
 		}
+		.relavent_heatmapimg {
+    		transition: transform 0.3s ease-in-out; /* Add a smooth transition */
+		}
+		.relavent_heatmapimg:hover {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100vw;
+			height: 100vh;
+			object-fit: contain;
+			z-index: 9999;
+		}
+
 	</style>
 </head>
 <body>
@@ -156,6 +169,8 @@
 		  <a href="{{ url_for('permplot') }}">PermPlot</a>
 		  <a href="{{ url_for('scaleplot') }}">ScalePlot</a>
 		  <a href="{{ url_for('shapplot') }}">ShapPlot</a>
+		  <a href="{{ url_for('mutual_index') }}">Mutual Index Plot</a>
+		  <a href="{{ url_for('bubbleplot') }}">Bubble Plot</a>
         </nav>
     </div>
 	<div class="container">
@@ -190,9 +205,10 @@
 
 	</form>
 </div>
-<div class="box2"><u>Results</u>
-	<p id="get_picture" class="d-none">{{img_path}}</p>
-	<img id="heatmap_img" class="d-none relavent_heatmapimg" src="{{img_path}}">
+<div class="box2">
+    <u>Results</u>
+    <p id="get_picture" class="d-none">{{img_path}}</p>
+    <img id="heatmap_img" class="d-none relavent_heatmapimg" src="{{img_path}}">
 </div>
 </div>
 <script src="../static/js/sidebar.js"></script>

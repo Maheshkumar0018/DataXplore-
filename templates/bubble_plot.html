@@ -109,22 +109,23 @@
             border-radius: 5px;
             cursor: pointer;
         }
-        h5 {
+		h5 {
             margin-top: 81px;
+            margin-left: 3px;
         }
 		.container {
   			overflow: auto; 
 		}
 
 		.box1 {
-			float: left; 
+  			float: left; 
   			width: 45%;
 		}
 
 		.box2 {
-			float: left; 
+  			float: left; 
   			width: 50%; 
-			margin-top: 0px;
+			margin-top: 100px;
 		}
 		u {
   			text-decoration: underline;
@@ -133,7 +134,7 @@
   			font-weight: bold;
 		}
         img {
-            width: 100%;
+             width: 100%;
             height: auto;
         }
 		.Feature{
@@ -163,36 +164,50 @@
           <a href="{{ url_for('heatmap') }}">HeatMap</a>
           <a href="{{ url_for('pairplot') }}">Pair Pot</a>
           <a href="{{ url_for('boxplot') }}">Box Plot</a>
-          <a href="{{ url_for('histogram') }}">Histogram</a>
+		  <a href="{{ url_for('histogram') }}">Histogram</a>
 		  <a href="{{ url_for('permplot') }}">PermPlot</a>
 		  <a href="{{ url_for('scaleplot') }}">ScalePlot</a>
 		  <a href="{{ url_for('shapplot') }}">ShapPlot</a>
 		  <a href="{{ url_for('mutual_index') }}">Mutual Index Plot</a>
-		  <a href="{{ url_for('bubbleplot') }}">Bubble Plot</a>
+          <a href="{{ url_for('bubbleplot') }}">Bubble Plot</a>
         </nav>
     </div>
 	<div class="container">
-
 		<a href="{{ url_for('upload') }}" >
 			<h5>Upload a File</h5>
 		</a>
 		<a href="{{ url_for('features') }}" >
 			<h5 class="Feature">Feature Analysis</h5>
 		</a>
-
-		<div class="box1"><h2 style="color: rgb(52, 69, 218);">Histogram</h2>
+		<div class="box1"><h2 style="color: rgb(52, 69, 218);">Bubble Plot</h2>
+			
 			<p style="color: rgb(218, 52, 52);"><u>Note: </u> Please Select the Different Features</p>
 			<span>Uploaded File: {{filename}}</span>
-
-	<form action="/histogram" method='POST'  onsubmit="return validateForm()" enctype="multipart/form-data">
-		<label for="dropdown1">Features </label>
-		<select id="dropdown1" name="histfeature">
+	<form action="/bubbleplot" method='POST'  onsubmit="return validateForm()" enctype="multipart/form-data">
+		<label for="dropdown1">X</label>
+		<select id="dropdown1" name="bubble_1">
             <option value="Select">Select</option>
             {% for column in numerical_columns %}
             <option value="{{ column }}">{{ column }}</option>
             {% endfor %}
 		</select>
-		
+
+		<label for="dropdown2">Y</label>
+		<select id="dropdown2" name="bubble_2">
+            <option value="Select">Select</option>
+			{% for column in numerical_columns %}
+            <option value="{{ column }}">{{ column }}</option>
+            {% endfor %}
+		</select>
+
+        <label for="dropdown2">Z</label>
+		<select id="dropdown2" name="bubble_3">
+            <option value="Select">Select</option>
+			{% for column in numerical_columns %}
+            <option value="{{ column }}">{{ column }}</option>
+            {% endfor %}
+		</select>
+
 
         <input type="submit" value="Submit">
 

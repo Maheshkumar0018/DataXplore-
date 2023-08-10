@@ -203,9 +203,8 @@ def Shap_plot(data,out_column,inputs):
     # return fig_to_base64(plt)
     fig = plt.savefig('./static/images/distribution.png')
 
-###################### not implemented ####################
 
-def mutual_index(data, inputs, outputs):
+def mutual_index_plot(data, inputs, outputs):
 
     n = 0
     X = data[inputs]
@@ -281,17 +280,22 @@ def mutual_index(data, inputs, outputs):
     # return fig_to_base64(plt)
     fig = plt.savefig('./static/images/distribution.png')
 
+
 def bubble_plot(data, X, Y, Z = 'Select', hue = 'Select' ):
     sns.set(font_scale=0.5)
     plt.figure(dpi=300,facecolor='white') # use the scatterplot function to build the bubble map
     if hue != 'Select' and Z != 'Select':
-        sns.scatterplot(data=data, x=X, y=Y, size=Z, legend='auto', sizes=(50, 150),hue=hue,palette = 'tab10',alpha=0.5)
+        sns.scatterplot(data=data, x=X, y=Y, size=Z, legend='auto', 
+                        sizes=(50, 150),hue=hue,palette = 'tab10',alpha=0.5)
     elif hue == 'Select' and Z != 'Select':
-        sns.scatterplot(data=data, x=X, y=Y, size=Z, legend='auto', sizes=(50, 150),hue=None,palette = 'tab10',alpha=0.5)
+        sns.scatterplot(data=data, x=X, y=Y, size=Z, legend='auto', 
+                        sizes=(50, 150),hue=None,palette = 'tab10',alpha=0.5)
     elif hue != 'Select' and Z == 'Select':
-        sns.scatterplot(data=data, x=X, y=Y, size=None, legend='auto', sizes=(50, 150),hue=hue,palette = 'tab10',alpha=0.5)
+        sns.scatterplot(data=data, x=X, y=Y, size=None, legend='auto', 
+                        sizes=(50, 150),hue=hue,palette = 'tab10',alpha=0.5)
     else:
-        sns.scatterplot(data=data, x=X, y=Y, size=None, legend='auto', sizes=(50, 500),hue=None,palette = 'tab10',alpha=0.5)
+        sns.scatterplot(data=data, x=X, y=Y, size=None, legend='auto', 
+                        sizes=(50, 500),hue=None,palette = 'tab10',alpha=0.5)
     plt.legend(markerscale = 0.5)
     # return fig_to_base64(plt)
     fig = plt.savefig('./static/images/distribution.png')
