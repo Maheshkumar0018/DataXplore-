@@ -93,6 +93,7 @@ def heatmap_data(data, column1, column2):
     sns.heatmap(abs(X.corr()), fmt=".2f", cmap="seismic", annot=True, linewidths=.5)
     fig = plt.savefig('./static/images/distribution.png')
 
+
 def boxplot_data(data):
     plt.figure()
     X = data
@@ -154,7 +155,7 @@ def Perm_plot(df, out_column, inputs):
     table = eli5.formatters.as_dataframe.explain_weights_df(
         perm, feature_names=inputs)
     
-    plt.figure(figsize=(25, 15), dpi=200)
+    plt.figure(figsize=(25, 15), dpi=400)
     sns.set(font_scale=1.3)
     x = table['weight']
     y = table['feature']
@@ -174,50 +175,54 @@ def Scaleplot(data, inputs):
     ]
 
     sns.set(font_scale=1.6)
-    plt.figure(figsize=(20, 20), dpi=100, facecolor='white')
-    plt.subplots_adjust(left=0.1, bottom=0.1, right=0.9, top=0.9, wspace=0.1, hspace=0.9)
+    plt.figure(figsize=(20, 15), dpi=300, facecolor='white')  # Adjust the figure size
+    plt.subplots_adjust(left=0.1, bottom=0.1, right=0.9, top=0.9, wspace=0.4, hspace=0.4)  # Adjust the layout
 
     for i, scale in enumerate(scalers):
         scaler = scale.fit(X)
         data_scaled = pd.DataFrame(scaler.transform(X), columns=list(X.columns))
 
-        plt.subplot(4, 2, i + 1)
-        plt.title(str(scale), fontsize='20')
+        plt.subplot(3, 2, i + 1)  # Reduce the number of rows to 3
+        plt.title(str(scale), fontsize='16')  # Adjust title font size
         sns.boxplot(data=data_scaled, showmeans=True)
-        plt.xticks(fontsize=14, rotation=90)
+        plt.xticks(fontsize=12, rotation=90)  # Adjust tick font size and rotation
 
+    plt.tight_layout()  # Improve spacing
     fig = plt.savefig('./static/images/distribution.png')
 
 
-def Shap_plot(data,out_column,inputs):
-    y = data[out_column]  # Convert from string "Yes"/"No" to binary
-    #feature_names = [i for i in data.columns if data[i].dtype in [np.int64, np.int64]]
+def Shap_plot(data, out_column, inputs):
+    y = data[out_column]
     X = data[inputs]
-    train_X, val_X, train_y, val_y = train_test_split(X, y,test_size=0.25, random_state=42)
-    my_model = GradientBoostingRegressor(learning_rate = 0.01,n_estimators = 1000, 
-                                         min_samples_split= 3, max_depth = 3 ).fit(train_X, train_y)
+    train_X, val_X, train_y, val_y = train_test_split(X, y, test_size=0.25, random_state=42)
+    my_model = GradientBoostingRegressor(learning_rate=0.01, n_estimators=1000, 
+                                         min_samples_split=3, max_depth=3).fit(train_X, train_y)
     shap_values = shap.TreeExplainer(my_model).shap_values(train_X)
-    plt.figure(figsize=(50, 20),dpi=200, facecolor='white',frameon=True,linewidth=10)
-    shap.summary_plot(shap_values, train_X,show=False)
-    plt.ylabel(f"Feature- {out_column}")
-    # return fig_to_base64(plt)
+    
+    plt.figure(figsize=(20, 10), dpi=100, facecolor='white')  # Adjust figure size and dpi
+    shap.summary_plot(shap_values, train_X, show=False)
+    
+    plt.title("SHAP Summary Plot", fontsize=14)  # Add a title
+    plt.ylabel(f"Feature - {out_column}", fontsize=12)  # Adjust y-axis label font size
+    plt.tight_layout()  # Improve spacing
+    
     fig = plt.savefig('./static/images/distribution.png')
-
 
 def mutual_index_plot(data, inputs, outputs):
 
     n = 0
     X = data[inputs]
     n_inputs = len(inputs)
-    output_coulumns = len(outputs)
-    xes = math.trunc(output_coulumns % 2)
+    output_columns = len(outputs)
+    xes = math.trunc(output_columns % 2)
+    
     if xes == 0:
-        xes = math.trunc(output_coulumns/2)
+        xes = math.trunc(output_columns / 2)
     else:
-        xes = math.trunc(output_coulumns/2 + 0.5)
+        xes = math.trunc(output_columns / 2 + 0.5)
 
-    if output_coulumns == 1:
-        fig = plt.figure(figsize=(10, 10))
+    if output_columns == 1:
+        fig = plt.figure(figsize=(20, 10))  # Increase width, decrease height
         y = data[outputs[0]]
         mi_scores = mutual_info_regression(X, y)
         mi_scores = pd.Series(mi_scores, name="MI Scores", index=X.columns)
@@ -227,14 +232,14 @@ def mutual_index_plot(data, inputs, outputs):
         y_pos = list(range(len(bars)))
         x_pos = list(range(len(height)))
         plt.barh(y_pos, height)
-        plt.yticks(y_pos, bars)
-        plt.title(outputs[0])
+        plt.yticks(y_pos, bars, fontsize=10)  # Adjust font size
+        plt.title(outputs[0], fontsize=14)  # Adjust font size
 
-    elif output_coulumns == 2:
-        fig = plt.figure(figsize=(20, 10))
+    elif output_columns == 2:
+        fig = plt.figure(figsize=(20, 20))  # Increase width, decrease height
         for i, j in enumerate(outputs):
-            plt.subplot(1, 2, i+1)
-            plt.subplots_adjust(wspace=0.5, hspace=5)
+            plt.subplot(1, 2, i + 1)
+            plt.subplots_adjust(wspace=0.5, hspace=0.5)
             y = data[j]
             mi_scores = mutual_info_regression(X, y)
             mi_scores = pd.Series(mi_scores, name="MI Scores", index=X.columns)
@@ -244,41 +249,39 @@ def mutual_index_plot(data, inputs, outputs):
             y_pos = list(range(len(bars)))
             x_pos = list(range(len(height)))
             plt.barh(y_pos, height)
-            plt.yticks(y_pos, bars)
-            plt.title(j)
+            plt.yticks(y_pos, bars, fontsize=10)  # Adjust font size
+            plt.title(j, fontsize=14)  # Adjust font size
             n = n + 1
 
     else:
-        fig, axes = plt.subplots(xes, 2, sharex=False,
-                                 sharey=True, figsize=(15, 10))
+        fig, axes = plt.subplots(
+            xes, 2, sharex=False, sharey=True, figsize=(20, 20)  # Increase width, decrease height
+        )
         plt.rcParams["axes.grid"] = False
-        plt.xticks(fontsize=9,)
-        #fig.add_subplot(111, frameon=False)
-        # hide tick and tick label of the big axis
+        plt.xticks(fontsize=9)
         plt.subplots_adjust(wspace=0.1, hspace=0.5)
-       # sns.set(font_scale=2)
+        sns.set(font_scale=1)
         for i, row in enumerate(axes):
             for j, cell in enumerate(row):
-                y = data[outputs[n]]
-                mi_scores = mutual_info_regression(X, y)
-                mi_scores = pd.Series(
-                    mi_scores, name="MI Scores", index=X.columns)
-                scores = mi_scores.sort_values(ascending=True)
-                height = scores.values
-                bars = (scores.keys())
-                y_pos = list(range(len(bars)))
-                x_pos = list(range(len(height)))
-                sns.set(font_scale=1)
-                cell.barh(y_pos, height)
-                plt.yticks(y_pos, bars)
-                #plt.xticks(x_pos, height)
-                plt.xticks(fontsize=9,)
-                cell.set_title(outputs[n])
-                n = n + 1
-                if n > output_coulumns-1:
-                    break
-    # return fig_to_base64(plt)
-    fig = plt.savefig('./static/images/distribution.png')
+                if n < output_columns:
+                    y = data[outputs[n]]
+                    mi_scores = mutual_info_regression(X, y)
+                    mi_scores = pd.Series(
+                        mi_scores, name="MI Scores", index=X.columns
+                    )
+                    scores = mi_scores.sort_values(ascending=True)
+                    height = scores.values
+                    bars = (scores.keys())
+                    y_pos = list(range(len(bars)))
+                    sns.set(font_scale=1)
+                    cell.barh(y_pos, height)
+                    cell.set_yticks(y_pos)
+                    cell.set_yticklabels(bars, fontsize=10)  # Adjust font size
+                    cell.set_title(outputs[n], fontsize=14)  # Adjust font size
+                    n = n + 1
+                else:
+                    cell.axis("off")
+    fig.savefig('./static/images/distribution.png')
 
 
 def bubble_plot(data, X, Y, Z = 'Select', hue = 'Select' ):
@@ -286,16 +289,16 @@ def bubble_plot(data, X, Y, Z = 'Select', hue = 'Select' ):
     plt.figure(dpi=300,facecolor='white') # use the scatterplot function to build the bubble map
     if hue != 'Select' and Z != 'Select':
         sns.scatterplot(data=data, x=X, y=Y, size=Z, legend='auto', 
-                        sizes=(50, 150),hue=hue,palette = 'tab10',alpha=0.5)
+                        sizes=(70, 150),hue=hue,palette = 'tab10',alpha=0.5)
     elif hue == 'Select' and Z != 'Select':
         sns.scatterplot(data=data, x=X, y=Y, size=Z, legend='auto', 
-                        sizes=(50, 150),hue=None,palette = 'tab10',alpha=0.5)
+                        sizes=(70, 150),hue=None,palette = 'tab10',alpha=0.5)
     elif hue != 'Select' and Z == 'Select':
         sns.scatterplot(data=data, x=X, y=Y, size=None, legend='auto', 
-                        sizes=(50, 150),hue=hue,palette = 'tab10',alpha=0.5)
+                        sizes=(70, 150),hue=hue,palette = 'tab10',alpha=0.5)
     else:
         sns.scatterplot(data=data, x=X, y=Y, size=None, legend='auto', 
-                        sizes=(50, 500),hue=None,palette = 'tab10',alpha=0.5)
+                        sizes=(70, 500),hue=None,palette = 'tab10',alpha=0.5)
     plt.legend(markerscale = 0.5)
     # return fig_to_base64(plt)
     fig = plt.savefig('./static/images/distribution.png')

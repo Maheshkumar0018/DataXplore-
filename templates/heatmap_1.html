@@ -180,37 +180,16 @@
 		<a href="{{ url_for('features') }}" >
 			<h5 class="Feature">Feature Analysis</h5>
 		</a>
-		<div class="box1"><h2 style="color: rgb(52, 69, 218);">HeatMap</h2>
+		<div class="box1"><h2 style="color: rgb(52, 69, 218);">HeatMap on Entire DataSet</h2>
 			
 			<p style="color: rgb(218, 52, 52);"><u>Note: </u> Please Select the Different Features</p>
 			<span>Uploaded File: {{filename}}</span>
-	<form action="/heatmap" method='POST'  onsubmit="return validateForm()" enctype="multipart/form-data">
-		<label for="dropdown1">Features 1</label>
-		<select id="dropdown1" name="heatmap_fe_1">
-            <option value="Select">Select</option>
-            {% for column in numerical_columns %}
-            <option value="{{ column }}">{{ column }}</option>
-            {% endfor %}
-		</select>
-
-		<label for="dropdown2">Features 2</label>
-		<select id="dropdown2" name="heatmap_fe_2">
-            <option value="Select">Select</option>
-			{% for column in numerical_columns %}
-            <option value="{{ column }}">{{ column }}</option>
-            {% endfor %}
-		</select>
-
-        <input type="submit" value="Submit">
-
-	</form>
 </div>
 <div class="box2">
     <u>Results</u>
     <p id="get_picture" class="d-none">{{img_path}}</p>
     <img id="heatmap_img" class="d-none relavent_heatmapimg" src="{{img_path}}">
-	<a href="{{ url_for('heatmap_1') }}">Click to Perform on Dataset</a>
-	<p></p>
+    <a href="{{ url_for('heatmap') }}">Click to Perform on Dataset Columns</a>
 </div>
 </div>
 <script src="../static/js/sidebar.js"></script>

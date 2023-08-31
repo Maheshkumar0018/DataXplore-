@@ -107,7 +107,7 @@ def features():
 
         return render_template('features_analysis.html',columns=columns,feature_columns=feature_columns,dnulls=dnulls,
                                stats_table=stats_table,df_dtypes=df_dtypes,df_shape=df_shape,img_path=img_path,
-                               filename=filename)
+                               filename=filename,numerical_columns=numerical_columns)
 
      return render_template('features_analysis.html',columns=columns,filename=filename,
                             numerical_columns=numerical_columns)
@@ -417,6 +417,27 @@ def bubbleplot():
                                numerical_columns=numerical_columns)
     
     return render_template('bubble_plot.html',filename=filename,numerical_columns=numerical_columns)
+
+
+
+@app.route('/heatmap_1', methods=['GET', 'POST'])
+def heatmap_1():
+    img_path = 'static/images/distribution.png'
+    df = pd.read_csv(file_path + '/' + filename, encoding='ISO-8859-1')
+    numerical_columns = df.select_dtypes(include=['int64', 'float64'])
+
+    plt.figure(figsize=(12, 8), dpi=200)
+    sns.set(font_scale=1.2)
+    plt.title('Correlation Matrix')
+    sns.heatmap(abs(numerical_columns.corr()), fmt=".2f", cmap="seismic", annot=True, 
+                annot_kws={"va": "center", "ha": "center"}, linewidths=.5)
+
+    plt.tight_layout()
+    plt.savefig(img_path)
+    plt.close()
+
+    return render_template('heatmap_1.html', img_path=img_path,filename=filename)
+
 
 
 if __name__ == '__main__':

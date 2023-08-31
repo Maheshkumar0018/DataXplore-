@@ -1,8 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <h5 class="titles">Data Explore+<h5>
     <title>File Upload</title>
     <style>
+        .titles{
+            text-align: center;
+            font-size: 36px; 
+            color: white; 
+        }
         body {
             font-family: Arial, sans-serif;
             background-image: url("../static/images/background.jpg");
@@ -35,7 +41,7 @@
             padding: 20px;
             align-items: center;
             justify-content: center;
-            margin-top: 150px;
+            margin-top: 40px; /* margin-top: 150px;*/
         }
 
         form {
@@ -126,6 +132,9 @@
                 {% endfor %}
                 {% endif %}
                 {% endwith %}
+                {% if filename %}
+                <p>Uploaded File: {{ filename }}</p>
+                {% endif %}
             </div>
         </form>
         <div class="container">
@@ -144,7 +153,7 @@
 
     <!-- Add the new text below the boxes -->
     <div class="additional-text">
-        This app is suitable for small and medium datasets only.
+        This app is suitable for small and medium datasets.
     </div>
 </body>
 </html>
